@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite" // Define o provedor como SQLite
+}
+
+model usuarios {
+  id                  Int         @id @default(autoincrement())
+  username            String    
+  nome                String
+  email               String
+  senha_hash          String
+  foto_perfil_url     String?  
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+}
+
+model imagens_produto {
+  id                  Int     @id @default(autoincrement())
+  produto_id          Int
+  url_imagem          String
+  ordem               String
+}
+
+model lojas {
+  id                   Int         @id @default(autoincrement())
+  usuario_id           Int
+  nome                 String
+  descricao            String?
+  logo_url             String?
+  banner_url           String?
+  sticker_url          String?
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+}
+
+model avaliacoes_loja {
+  id                   Int         @id @default(autoincrement())
+  usuario_id           Int
+  loja_id              Int
+  nota                 Int
+  comentario           String?
+  createdAt            DateTime    @default(now())
+  updatedAt            DateTime    @updatedAt
+}
+
+model categorias {
+  id                   Int         @id @default(autoincrement())
+  nome                 String
+  categoria_pai_id     Int?
+}
+
+model avaliacoes_produto {
+  id                    Int         @id @default(autoincrement())
+  usuario_id            Int
+  produto_id            Int
+  nota                  Int
+  comentario            String?
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+}
+
+model produtos {
+  id                    Int         @id @default(autoincrement())
+  loja_id               Int
+  categoria_id          Int
+  nome                  String
+  descricao             String?
+  preco                 Float
+  estoque               Int
+  createdAt             DateTime    @default(now())
+  updatedAt             DateTime    @updatedAt
+}
+
+model comentarios_avaliacao {
+  id                     Int         @id @default(autoincrement())
+  usuario_id             Int
+  avaliacao_loja_id      Int?
+  avaliacao_produto_id   Int?
+  conteudo               String
+  createdAt              DateTime    @default(now())
+  updatedAt              DateTime    @updatedAt
+}

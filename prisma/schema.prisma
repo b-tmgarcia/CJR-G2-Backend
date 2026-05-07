@@ -4,11 +4,11 @@
 // Get a free hosted Postgres database in seconds: `npx create-db`
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "sqlite" // Define o provedor como SQLite
+  url      = "file:./dev.db"
 
 }
 

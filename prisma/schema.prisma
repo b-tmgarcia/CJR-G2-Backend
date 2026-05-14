@@ -14,7 +14,7 @@ model usuarios {
   id                    Int                     @id @default(autoincrement())
   username              String
   nome                  String
-  email                 String
+  email                 String                  @unique
   senha_hash            String
   foto_perfil_url       String?
   createdAt             DateTime                @default(now())

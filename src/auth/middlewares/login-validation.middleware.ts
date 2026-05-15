@@ -21,8 +21,8 @@ import {
       if (validations.length) {
         throw new BadRequestException(
           validations.reduce((acc, curr) => {
-            return [...acc, ...Object.values(curr.constraints)];
-          }, []),
+            return [...acc, ...Object.values(curr.constraints ?? {})];
+          }, [] as string[]), // <-- Adicione "as string[]" aqui
         );
       }
   

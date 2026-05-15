@@ -86,23 +86,25 @@ export class UserService {
       ? await bcrypt.hash(updateUserDto.senha, 10)
       : undefined;
 
-    return await this.prisma.usuarios.update({
-      where: { id },
-      data: {
-        ...updateUserDto,
-        senha_hash: hashedPassword ?? user.senha_hash,
-        senha: undefined, // remove o campo senha puro do data
-      },
-      select: {
-        id: true,
-        username: true,
-        email: true,
-        nome: true,
-        foto_perfil_url: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+  return await this.prisma.usuarios.update({
+    where: { id },
+    data: {
+      username: updateUserDto.username,
+      email: updateUserDto.email,
+      nome: updateUserDto.nome,
+      foto_perfil_url: updateUserDto.foto_perfil_url,
+      senha_hash: hashedPassword ?? user.senha_hash,
+    },
+    select: {
+      id: true,
+      username: true,
+      email: true,
+      nome: true,
+      foto_perfil_url: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
   }
 
   async remove(id: number) {

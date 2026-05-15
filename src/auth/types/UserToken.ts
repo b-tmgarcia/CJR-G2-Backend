@@ -1,3 +1,3 @@
-export type UserToken = {
+export class UserToken {
   access_token: string;
-};
+}

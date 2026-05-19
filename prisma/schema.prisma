@@ -87,10 +87,10 @@ model avaliacoes_produto {
 
 model produtos {
   id                 Int                  @id @default(autoincrement())
-  loja_id            Int
-  loja               lojas                @relation(fields: [loja_id], references: [id])
-  categoria_id       Int
-  categoria          categorias           @relation(fields: [categoria_id], references: [id])
+  loja_id            Int?
+  loja               lojas?                @relation(fields: [loja_id], references: [id])
+  categoria_id       Int?
+  categoria          categorias?           @relation(fields: [categoria_id], references: [id])
   nome               String
   descricao          String?
   preco              Float

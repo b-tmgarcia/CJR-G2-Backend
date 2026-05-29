@@ -7,6 +7,9 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth/guards/auth.guard';
 import { JwtModule } from '@nestjs/jwt';
+import { AvaliacoesLojaModule } from './avaliacoes-loja/avaliacoes-loja.module';
+import { AvaliacoesProdutoModule } from './avaliacoes-produto/avaliacoes-produto.module';
+import { LojasModule } from './lojas/lojas.module';
 
 @Module({
   imports: [
@@ -16,6 +19,9 @@ import { JwtModule } from '@nestjs/jwt';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    AvaliacoesLojaModule,
+    AvaliacoesProdutoModule,
+    LojasModule
   ],
   controllers: [AppController],
   providers: [

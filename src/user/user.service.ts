@@ -19,7 +19,7 @@ export class UserService {
 
     const hashedPassword = await bcrypt.hash(createUserDto.senha, 10);
 
-    return await this.prisma.usuarios.create({
+    const user =  await this.prisma.usuarios.create({
       data: {
         username: createUserDto.username,
         email: createUserDto.email,
@@ -28,6 +28,11 @@ export class UserService {
         foto_perfil_url: createUserDto.foto_perfil_url,
       },
     });
+
+    return {
+      ...user,
+      senha_hash: undefined
+    };
   }
 
   async findAll() {

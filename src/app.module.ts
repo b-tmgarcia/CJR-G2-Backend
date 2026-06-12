@@ -11,6 +11,7 @@ import { AvaliacoesLojaModule } from './avaliacoes-loja/avaliacoes-loja.module';
 import { AvaliacoesProdutoModule } from './avaliacoes-produto/avaliacoes-produto.module';
 import { LojasModule } from './lojas/lojas.module';
 import { ImagensProdutoModule } from './imagens-produto/imagens-produto.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
   imports: [
@@ -24,14 +25,15 @@ import { ImagensProdutoModule } from './imagens-produto/imagens-produto.module';
     AvaliacoesProdutoModule,
     LojasModule,
     ImagensProdutoModule,
+    ProductsModule,
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
+    // {
+    //  provide: APP_GUARD,
+    //  useClass: AuthGuard,
+    //},
   ],
 })
 export class AppModule {}

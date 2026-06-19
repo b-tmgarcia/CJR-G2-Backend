@@ -15,7 +15,7 @@ export class UserController {
   async create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
-
+  @Public()
   @Get()
   async findAll() {
     return this.userService.findAll();
@@ -25,15 +25,15 @@ export class UserController {
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.userService.findOne(id);
   }
-
+  
+  @Public()
   @Patch(':id')
-  async update(@Param('id', ParseIntPipe) id: number, @Body() updateUserDto: UpdateUserDto, @CurrentUser() currentUser: UserPayload) {
-    if (id !== currentUser.sub) {
-      throw new UnauthorizedException('Você só pode atualizar suas próprias informações.');
-    }
+  async update(
+    @Param('id', ParseIntPipe) id: number, 
+    @Body() updateUserDto: UpdateUserDto
+  ) {
     return this.userService.update(id, updateUserDto);
   }
-
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number, @CurrentUser() currentUser: UserPayload) {
     if (id !== currentUser.sub) {

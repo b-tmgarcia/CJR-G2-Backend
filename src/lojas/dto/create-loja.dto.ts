@@ -17,15 +17,15 @@ export class CreateLojaDto {
   @IsOptional()
   descricao?: string;
 
-  @IsUrl()
+  @IsString()
   @IsOptional()
   logo_url?: string;
 
-  @IsUrl()
+  @IsString()
   @IsOptional()
   banner_url?: string;
 
-  @IsUrl()
+  @IsString()
   @IsOptional()
   sticker_url?: string;
 }

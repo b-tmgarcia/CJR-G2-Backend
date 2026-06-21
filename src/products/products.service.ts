@@ -8,8 +8,23 @@ export class ProductsService {
   constructor(private readonly prisma: PrismaService) {}
 
   async create(createProductDto: CreateProductDto) {
+    if (!createProductDto.loja_id || !createProductDto.categoria_id) {
+      throw new Error("Loja e Categoria são obrigatórias para criar um produto.");
+    }
+
     return this.prisma.produtos.create({
-      data: createProductDto,
+      data: {
+        nome: createProductDto.nome,
+        descricao: createProductDto.descricao,
+        preco: createProductDto.preco,
+        estoque: createProductDto.estoque,
+        loja: {
+          connect: { id: createProductDto.loja_id },
+        },
+        categoria: {
+          connect: { id: createProductDto.categoria_id },
+        },
+      },
     });
   }
 

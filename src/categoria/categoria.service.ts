@@ -28,7 +28,6 @@ export class CategoriaService {
         subcategorias: true,
         categoria_pai: true,
         produtos: true,
-        lojas: true,
       },
     });
 

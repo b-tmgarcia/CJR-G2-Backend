@@ -13,6 +13,7 @@ import { LojasModule } from './lojas/lojas.module';
 import { ImagensProdutoModule } from './imagens-produto/imagens-produto.module';
 import { ProductsModule } from './products/products.module';
 import { UploadModule } from './upload/upload.module';
+import { CategoriaModule } from './categoria/categoria.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { UploadModule } from './upload/upload.module';
     ImagensProdutoModule,
     ProductsModule,
     UploadModule,
+    CategoriaModule,
   ],
   controllers: [AppController],
   providers: [

@@ -66,9 +66,14 @@ export class ProductsService {
     });
   }
 
-  async remove(id: number) {
+async remove(id: number) {
     await this.findOne(id);
-
+    await this.prisma.imagens_produto.deleteMany({
+      where: { produto_id: id },
+    });
+    await this.prisma.avaliacoes_produto.deleteMany({
+      where: { produto_id: id },
+    });
     return this.prisma.produtos.delete({
       where: { id },
     });

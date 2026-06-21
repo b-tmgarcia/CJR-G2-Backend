@@ -12,6 +12,7 @@ import { AvaliacoesProdutoModule } from './avaliacoes-produto/avaliacoes-produto
 import { LojasModule } from './lojas/lojas.module';
 import { ImagensProdutoModule } from './imagens-produto/imagens-produto.module';
 import { ProductsModule } from './products/products.module';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { ProductsModule } from './products/products.module';
     LojasModule,
     ImagensProdutoModule,
     ProductsModule,
+    UploadModule,
   ],
   controllers: [AppController],
   providers: [

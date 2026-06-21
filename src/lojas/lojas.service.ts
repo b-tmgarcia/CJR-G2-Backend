@@ -28,7 +28,13 @@ export class LojasService {
       where: { id },
       include: {
         usuario: { select: { id: true, nome: true, email: true } },
-        produtos: true,
+        produtos: {
+          include: {
+            imagens_produto: {
+              orderBy: { ordem: 'asc' },
+            },
+          },
+        },
         avaliacoes_loja: true,
       },
     });

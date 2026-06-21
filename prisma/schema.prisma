@@ -43,6 +43,8 @@ model lojas {
   avaliacoes_loja avaliacoes_loja[]
   usuario         usuarios          @relation(fields: [usuario_id], references: [id])
   produtos        produtos[]
+  categoria_id    Int?
+  categoria       categorias?       @relation(fields: [categoria_id], references: [id])
 }
 
 model avaliacoes_loja {
@@ -65,6 +67,7 @@ model categorias {
   categoria_pai    categorias?  @relation("RelacaoSubcategorias", fields: [categoria_pai_id], references: [id])
   subcategorias    categorias[] @relation("RelacaoSubcategorias")
   produtos         produtos[]
+  lojas            lojas[]
 }
 
 model avaliacoes_produto {

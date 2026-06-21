@@ -1,4 +1,4 @@
-import {IsInt, IsNotEmpty, IsString} from "class-validator";
+import {IsInt, IsNotEmpty, IsOptional, IsString} from "class-validator";
 
 export class CreateComentarioDto {
     @IsInt()
@@ -7,9 +7,13 @@ export class CreateComentarioDto {
     
     @IsNotEmpty()
     @IsString()
-    comentario!: string;    
+    conteudo!: string;    
     
-    @IsNotEmpty()
+    @IsOptional()
     @IsInt()
-    avaliacao_id!: number;
+    avaliacao_loja_id?: number;
+
+    @IsOptional()
+    @IsInt()
+    avaliacao_produto_id?: number;
 }

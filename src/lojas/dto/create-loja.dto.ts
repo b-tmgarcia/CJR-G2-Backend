@@ -5,6 +5,10 @@ export class CreateLojaDto {
   @IsNotEmpty()
   usuario_id!: number;  
 
+  @IsInt()
+  @IsOptional()
+  categoria_id?: number;
+
   @IsString()
   @IsNotEmpty()
   nome!: string;        

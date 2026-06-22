@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model usuarios {
+  id                    Int                     @id @default(autoincrement())
+  username              String
+  nome                  String
+  email                 String @unique
+  senha_hash            String
+  foto_perfil_url       String?
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  avaliacoes_loja       avaliacoes_loja[]
+  avaliacoes_produto    avaliacoes_produto[]
+  comentarios_avaliacao comentarios_avaliacao[]
+  lojas                 lojas[]
+}
+
+model imagens_produto {
+  id         Int      @id @default(autoincrement())
+  produto_id Int
+  url_imagem String
+  ordem      Int
+  produto    produtos @relation(fields: [produto_id], references: [id])
+}
+
+model lojas {
+  id              Int               @id @default(autoincrement())
+  usuario_id      Int
+  nome            String
+  descricao       String?
+  logo_url        String?
+  banner_url      String?
+  sticker_url     String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  avaliacoes_loja avaliacoes_loja[]
+  usuario         usuarios          @relation(fields: [usuario_id], references: [id])
+  produtos        produtos[]
+  categoria_id    Int?
+  categoria       categorias?       @relation(fields: [categoria_id], references: [id])
+}
+
+model avaliacoes_loja {
+  id                    Int                     @id @default(autoincrement())
+  usuario_id            Int
+  loja_id               Int
+  nota                  Int
+  comentario            String?
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  loja                  lojas                   @relation(fields: [loja_id], references: [id])
+  usuario               usuarios                @relation(fields: [usuario_id], references: [id])
+  comentarios_avaliacao comentarios_avaliacao[]
+}
+
+model categorias {
+  id               Int          @id @default(autoincrement())
+  nome             String
+  categoria_pai_id Int?
+  categoria_pai    categorias?  @relation("RelacaoSubcategorias", fields: [categoria_pai_id], references: [id])
+  subcategorias    categorias[] @relation("RelacaoSubcategorias")
+  produtos         produtos[]
+  lojas            lojas[]
+}
+
+model avaliacoes_produto {
+  id                    Int                     @id @default(autoincrement())
+  usuario_id            Int
+  produto_id            Int
+  nota                  Int
+  comentario            String?
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime                @updatedAt
+  produto               produtos                @relation(fields: [produto_id], references: [id])
+  usuario               usuarios                @relation(fields: [usuario_id], references: [id])
+  comentarios_avaliacao comentarios_avaliacao[]
+}
+
+model produtos {
+  id                 Int                  @id @default(autoincrement())
+  loja_id            Int?
+  categoria_id       Int?
+  nome               String
+  descricao          String?
+  preco              Float
+  estoque            Int
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime             @updatedAt
+  avaliacoes_produto avaliacoes_produto[]
+  imagens_produto    imagens_produto[]
+  categoria          categorias?          @relation(fields: [categoria_id], references: [id])
+  loja               lojas?               @relation(fields: [loja_id], references: [id])
+}
+
+model comentarios_avaliacao {
+  id                   Int                 @id @default(autoincrement())
+  usuario_id           Int
+  avaliacao_loja_id    Int?
+  avaliacao_produto_id Int?
+  conteudo             String
+  createdAt            DateTime            @default(now())
+  updatedAt            DateTime            @updatedAt
+  avaliacao_produto    avaliacoes_produto? @relation(fields: [avaliacao_produto_id], references: [id])
+  avaliacao_loja       avaliacoes_loja?    @relation(fields: [avaliacao_loja_id], references: [id])
+  usuario              usuarios            @relation(fields: [usuario_id], references: [id])
+}
